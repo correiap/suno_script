@@ -13,7 +13,7 @@ echo " Create directory to save reports"
 mkdir /home/ec2-user/suno/sc$sc
 
 #minimum report size in bytes
-minfilesize=5000
+minfilesize=6000
 
 echo "Script running..."
 
