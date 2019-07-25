@@ -22,14 +22,21 @@ do
         #echo "Downloading ID #$n out of $x"
         wget -q -P /home/ec2-user/suno/sc$sc https://membros.sunoresearch.com.br/download/clube-small-caps-$sc/?wpdmdl=$n
 	
-	#get filesize
-        filesize=$(wc -c <"/home/ec2-user/suno/sc$sc/index.html?wpdmdl=$n")
-        
-	if [ $filesize -gt $minfilesize ]; then
-                echo " Small Caps Report found and the size is: " $filesize
-        else
-                #echo "file should be deleted"
-		rm -f /home/ec2-user/suno/sc$sc/index.html?wpdmdl=$n
+	FILE=/home/ec2-user/suno/sc$sc/index.html?wpdmdl=$n
+
+        if [ -f "$FILE" ]; then
+                #echo "$FILE exist"
+                #get filesize
+                filesize=$(wc -c <"/home/ec2-user/suno/sc$sc/index.html?wpdmdl=$n")
+
+                if [ $filesize -gt $minfilesize ]; then
+                        echo " Small Caps Report found and the size is: " $filesize
+                else
+                        #echo "file should be deleted"
+                        rm -f /home/ec2-user/suno/sc$sc/index.html?wpdmdl=$n
+                fi
+        #else
+        #       #echo "$FILE does not exist"
         fi
 	
 	n=$(( n+1 ))
